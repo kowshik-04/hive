@@ -14,8 +14,8 @@ from unittest.mock import AsyncMock, MagicMock
 import pytest
 from aiohttp.test_utils import TestClient, TestServer
 
-from framework.host.triggers import TriggerDefinition
 from framework.host.execution_manager import ExecutionAlreadyRunningError
+from framework.host.triggers import TriggerDefinition
 from framework.llm.model_catalog import get_models_catalogue
 from framework.server import (
     routes_messages,
@@ -784,9 +784,7 @@ class TestExecution:
     @pytest.mark.asyncio
     async def test_trigger_returns_409_when_execution_still_running(self):
         session = _make_session()
-        session.colony_runtime.trigger = AsyncMock(
-            side_effect=ExecutionAlreadyRunningError("default", ["session-1"])
-        )
+        session.colony_runtime.trigger = AsyncMock(side_effect=ExecutionAlreadyRunningError("default", ["session-1"]))
         app = _make_app_with_session(session)
         async with TestClient(TestServer(app)) as client:
             resp = await client.post(
@@ -1051,9 +1049,7 @@ class TestStop:
     @pytest.mark.asyncio
     async def test_stop_returns_accepted_while_execution_is_still_cancelling(self):
         session = _make_session()
-        session.colony_runtime._mock_streams["default"].cancel_execution = AsyncMock(
-            return_value="cancelling"
-        )
+        session.colony_runtime._mock_streams["default"].cancel_execution = AsyncMock(return_value="cancelling")
         app = _make_app_with_session(session)
         async with TestClient(TestServer(app)) as client:
             resp = await client.post(

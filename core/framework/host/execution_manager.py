@@ -1209,9 +1209,7 @@ class ExecutionManager:
         """Get execution context."""
         return self._active_executions.get(execution_id)
 
-    async def cancel_execution(
-        self, execution_id: str, *, reason: str | None = None
-    ) -> CancelExecutionResult:
+    async def cancel_execution(self, execution_id: str, *, reason: str | None = None) -> CancelExecutionResult:
         """
         Cancel a running execution.
 
@@ -1249,8 +1247,7 @@ class ExecutionManager:
             # here because resumed executions reuse the same id; a delayed pop
             # could otherwise delete bookkeeping that belongs to the new run.
             logger.warning(
-                "Execution %s did not finish within cancel timeout; "
-                "leaving bookkeeping in place until task exit",
+                "Execution %s did not finish within cancel timeout; leaving bookkeeping in place until task exit",
                 execution_id,
             )
             return "cancelling"

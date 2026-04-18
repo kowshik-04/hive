@@ -111,6 +111,7 @@ def _execution_already_running_response(exc: ExecutionAlreadyRunningError) -> we
         status=409,
     )
 
+
 async def handle_trigger(request: web.Request) -> web.Response:
     """POST /api/sessions/{session_id}/trigger — start an execution.
 
@@ -499,9 +500,7 @@ async def handle_pause(request: web.Request) -> web.Response:
 
             for exec_id in list(stream.active_execution_ids):
                 try:
-                    outcome = await stream.cancel_execution(
-                        exec_id, reason="Execution paused by user"
-                    )
+                    outcome = await stream.cancel_execution(exec_id, reason="Execution paused by user")
                     if outcome == "cancelled":
                         cancelled.append(exec_id)
                     elif outcome == "cancelling":
@@ -557,9 +556,7 @@ async def handle_stop(request: web.Request) -> web.Response:
                     if hasattr(node, "cancel_current_turn"):
                         node.cancel_current_turn()
 
-            outcome = await stream.cancel_execution(
-                execution_id, reason="Execution stopped by user"
-            )
+            outcome = await stream.cancel_execution(execution_id, reason="Execution stopped by user")
 
             if outcome == "cancelled":
                 # Cancel queen's in-progress LLM turn

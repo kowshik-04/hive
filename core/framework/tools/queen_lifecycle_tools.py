@@ -1007,13 +1007,7 @@ def register_queen_lifecycle_tools(
 
         return json.dumps(
             {
-                "status": (
-                    "cancelling"
-                    if cancelling
-                    else "stopped"
-                    if total_stopped
-                    else "no_active_executions"
-                ),
+                "status": ("cancelling" if cancelling else "stopped" if total_stopped else "no_active_executions"),
                 "workers_stopped": total_stopped,
                 "unified_stopped": stopped_unified,
                 "legacy_stopped": len(cancelled),
@@ -1626,8 +1620,7 @@ def register_queen_lifecycle_tools(
             )
         else:
             result["message"] = (
-                "Stop requested, but the worker is still shutting down. "
-                "Phase will not change until shutdown completes."
+                "Stop requested, but the worker is still shutting down. Phase will not change until shutdown completes."
             )
         return json.dumps(result)
 
@@ -1668,8 +1661,7 @@ def register_queen_lifecycle_tools(
             )
         else:
             result["message"] = (
-                "Stop requested, but the worker is still shutting down. "
-                "Phase will not change until shutdown completes."
+                "Stop requested, but the worker is still shutting down. Phase will not change until shutdown completes."
             )
         # Nudge the queen to start coding instead of blocking for user input.
         if can_transition and phase_state is not None and phase_state.inject_notification:
@@ -1712,8 +1704,7 @@ def register_queen_lifecycle_tools(
             )
         else:
             result["message"] = (
-                "Stop requested, but the worker is still shutting down. "
-                "Phase will not change until shutdown completes."
+                "Stop requested, but the worker is still shutting down. Phase will not change until shutdown completes."
             )
         return json.dumps(result)
 

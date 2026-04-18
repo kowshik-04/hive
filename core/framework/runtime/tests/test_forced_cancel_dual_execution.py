@@ -11,8 +11,8 @@ import pytest
 from framework.host.event_bus import AgentEvent, EventBus, EventType
 from framework.host.execution_manager import (
     EntryPointSpec,
-    ExecutionManager,
     ExecutionAlreadyRunningError,
+    ExecutionManager,
 )
 from framework.orchestrator.edge import GraphSpec
 from framework.orchestrator.goal import Goal
